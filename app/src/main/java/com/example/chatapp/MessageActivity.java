@@ -4,21 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,11 +44,26 @@ public class MessageActivity extends AppCompatActivity {
 
         String uid = LogInActivity.user.getUid();
         Intent intent = getIntent();
-        String uid2 = intent.getStringExtra("uid");;
-        // Write a user to the database
+        String uid2 = intent.getStringExtra("uid");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(uid).child("chats").child(uid2).child("messages");
         DatabaseReference myRef2 = database.getReference("users").child(uid2).child("chats").child(uid).child("messages");
+        DatabaseReference userRef =   database.getReference("users").child(uid2).child("username");
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                String name = snapshot.getValue(String.class);
+                database.getReference("users").child(uid).child("chats").child(uid2).child("username").setValue(name);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+        database.getReference("users").child(uid2).child("chats").child(uid).child("username").setValue(LogInActivity.user.getDisplayName());
 
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
