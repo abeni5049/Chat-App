@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> subtitle;
     ArrayList<String> uid;
     ArrayList<Character> profile;
+    Button discoverButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("users").child(LogInActivity.user.getUid()).child("chats");
         ListViewAdapter adapter = new ListViewAdapter(this,userName,subtitle,profile);
         list = findViewById(R.id.list);
+        discoverButton = findViewById(R.id.discover_button);
         list.setAdapter(adapter);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -73,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this,MessageActivity.class);
             intent.putExtra("uid",uid.get(position));
             startActivity(intent);
+        });
+
+        discoverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,DiscoverActivity.class);
+                startActivity(intent);
+            }
         });
 
     }
