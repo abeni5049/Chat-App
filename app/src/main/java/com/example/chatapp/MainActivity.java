@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ListView list;
     ArrayList<String> userName;
     ArrayList<String> subtitle;
+    ArrayList<String> uid;
     ArrayList<Character> profile;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         userName = new ArrayList<>();
         subtitle = new ArrayList<>();
         profile = new ArrayList<>();
+        uid = new ArrayList<>();
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     userName.add(username);
                     subtitle.add(lastMessage);
                     profile.add(username.charAt(0));
+                    uid.add(child.getKey());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         list.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(MainActivity.this,MessageActivity.class);
+            intent.putExtra("uid",uid.get(position));
             startActivity(intent);
         });
 

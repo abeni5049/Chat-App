@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,8 +43,9 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        String uid = "1pUiLVhyzseX4Q3b9HwQd4P4NL12";
-        String uid2 = "ovPshVxVx2OXcOa0mFJP5m6345v1";
+        String uid = LogInActivity.user.getUid();
+        Intent intent = getIntent();
+        String uid2 = intent.getStringExtra("uid");;
         // Write a user to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(uid).child("chats").child(uid2).child("messages");
@@ -79,7 +81,11 @@ public class MessageActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                 Message value = snapshot.getValue(Message.class);
                 assert value != null;
-                senderArray.add(true);
+                if(LogInActivity.user.getDisplayName().equals(value.getSender())) {
+                    senderArray.add(true);
+                }else{
+                    senderArray.add(false);
+                }
                 messageArray.add(value.getText());
                 adapter.notifyDataSetChanged();
             }
