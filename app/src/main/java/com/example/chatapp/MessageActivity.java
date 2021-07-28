@@ -42,10 +42,13 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        String uid = LogInActivity.user.getUid();
+        String uid = "1pUiLVhyzseX4Q3b9HwQd4P4NL12";
+        String uid2 = "ovPshVxVx2OXcOa0mFJP5m6345v1";
         // Write a user to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users").child(uid).child("message");
+        DatabaseReference myRef = database.getReference("users").child(uid).child("chats").child(uid2);
+        DatabaseReference myRef2 = database.getReference("users").child(uid2).child("chats").child(uid);
+
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -77,17 +80,6 @@ public class MessageActivity extends AppCompatActivity {
                 Message value = snapshot.getValue(Message.class);
                 assert value != null;
                 senderArray.add(true);
-//                String val = value.getSender();
-//                Log.i("sender",val);
-//                String val2= LogInActivity.user.getDisplayName();
-//                Log.i("sender",val2);
-//                if(LogInActivity.user.getDisplayName().equals(value.getSender())){
-//                    senderArray.add(true);
-//                    Log.i("sender","true");
-//                }else {
-//                    senderArray.add(false);
-//                    Log.i("sender",value.getSender());
-//                }
                 messageArray.add(value.getText());
                 adapter.notifyDataSetChanged();
             }
@@ -142,8 +134,11 @@ public class MessageActivity extends AppCompatActivity {
         send.setOnClickListener(v -> {
             String message = messageBox.getText().toString().trim();
             DatabaseReference ref = myRef.push();
+            DatabaseReference ref2 = myRef2.push();
             ref.child("text").setValue(message);
             ref.child("sender").setValue(LogInActivity.user.getDisplayName());
+            ref2.child("text").setValue(message);
+            ref2.child("sender").setValue(LogInActivity.user.getDisplayName());
             messageBox.setText("");
         });
 
