@@ -46,8 +46,8 @@ public class MessageActivity extends AppCompatActivity {
         String uid2 = "ovPshVxVx2OXcOa0mFJP5m6345v1";
         // Write a user to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users").child(uid).child("chats").child(uid2);
-        DatabaseReference myRef2 = database.getReference("users").child(uid2).child("chats").child(uid);
+        DatabaseReference myRef = database.getReference("users").child(uid).child("chats").child(uid2).child("messages");
+        DatabaseReference myRef2 = database.getReference("users").child(uid2).child("chats").child(uid).child("messages");
 
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

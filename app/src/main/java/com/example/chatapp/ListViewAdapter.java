@@ -10,14 +10,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class ListViewAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final String[] userName;
-    private final String[] latestMessage;
-    private final String[] profile;
+    private final ArrayList<String> userName;
+    private final ArrayList<String> latestMessage;
+    private final ArrayList<Character> profile;
 
-    public ListViewAdapter(@NonNull MainActivity context, String[] userName , String[] latestMessage, String[] profile) {
+    public ListViewAdapter(@NonNull Activity context, ArrayList<String> userName , ArrayList<String>latestMessage, ArrayList<Character> profile) {
         super(context, R.layout.listitem,userName);
         this.context = context;
         this.userName = userName;
@@ -33,9 +35,9 @@ public class ListViewAdapter extends ArrayAdapter<String> {
         TextView userNameTextView = rowView.findViewById(R.id.user_name);
         TextView latestMessageTextView = rowView.findViewById(R.id.latest_message);
 
-        profilePicture.setText(profile[position]);
-        userNameTextView.setText(userName[position]);
-        latestMessageTextView.setText(latestMessage[position]);
+        profilePicture.setText(profile.get(position).toString());
+        userNameTextView.setText(userName.get(position));
+        latestMessageTextView.setText(latestMessage.get(position));
 
         return rowView;
     }
