@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    >
+
+
+
+    <TextView
+        android:id="@+id/profile_picture"
+        android:text="A"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@drawable/profile_circle_mini"
+        />
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/profile_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:text="Abeni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium'"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:text="last seen recently"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/messageBackground"
+    android:orientation="vertical"
+    tools:context=".MessageActivity">
+
+    <ListView
+        android:id="@+id/message_list"
+        android:layout_above="@id/message_box_linear_layout"
+        android:divider="@null"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+
+    <LinearLayout
+        android:id="@+id/message_box_linear_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/smile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/input_smile"
+            android:layout_gravity="center"
+            app:tint="@color/gray" />
+
+        <EditText
+            android:id="@+id/message_box"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Write a message..."
+            android:layout_gravity="center"
+            android:background="@null"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+        />
+        <ImageView
+            android:id="@+id/attach"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/input_attach"
+            android:layout_gravity="center"
+            app:tint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/mic"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/input_mic"
+            android:layout_gravity="center"
+            app:tint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_gravity="center"
+            app:tint="@color/primary" />
+
+    </LinearLayout>
+
+</RelativeLayout>
